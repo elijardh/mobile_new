@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'newsfeedpage.dart';
 import 'data.dart';
 import 'newsapi.dart';
+import 'webview.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 ListView.builder(itemBuilder: (context, index){
-                  return blogNews(article[index].urlToImage, article[index].title, article[index].description);
+                  return blogNews(article[index].urlToImage, article[index].title, article[index].description, article[index].url);
                 }, itemCount: article.length,
                 shrinkWrap: true,
                 physics: ClampingScrollPhysics(),)
@@ -101,7 +102,7 @@ class _LandingPageState extends State<LandingPage> {
       },
     );
   }
-  Widget blogNews(String url, String title, String desc) {
+  Widget blogNews(String url, String title, String desc, String aurl) {
     return GestureDetector(
       child: Container(
         decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(20)),
@@ -120,6 +121,9 @@ class _LandingPageState extends State<LandingPage> {
           ],
         ),
       ),
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleView(url: aurl)));
+      },
     );
   }
 }
